@@ -1,0 +1,11 @@
+{
+    "name": "ckfinder/ckfinder",
+    "description": "",
+    "keywords": ["CKFinder"],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "files": ["core/ckfinder_php5.php"]
+    }
+}
