@@ -105,7 +105,6 @@ class CKFinder_Connector_CommandHandler_Init extends CKFinder_Connector_CommandH
 
         // Load the resource types in an array.
         $_aTypes = $_config->getDefaultResourceTypes();
-
         if (!sizeof($_aTypes)) {
             $_aTypes = $_config->getResourceTypeNames();
         }
@@ -139,10 +138,9 @@ class CKFinder_Connector_CommandHandler_Init extends CKFinder_Connector_CommandH
                     continue;
                 }
 
-                if (!isset($_GET['type']) || $_GET['type'] === $_resourceTypeName) {
-                    //print $_resourceTypeName;
+                if (!isset($_GET['type']) || ucwords($_GET['type']) === $_resourceTypeName || $_GET['type'] === $_resourceTypeName) {  # unix bug.
                     $_oTypeInfo = $_config->getResourceTypeConfig($_resourceTypeName);
-                    //print_r($_oTypeInfo);
+
                     $_oResourceType[$i] = new Ckfinder_Connector_Utils_XmlNode("ResourceType");
                     $_oResourceTypes->addChild($_oResourceType[$i]);
 
