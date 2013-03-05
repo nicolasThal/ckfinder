@@ -139,7 +139,7 @@ class CKFinder_Connector_CommandHandler_Init extends CKFinder_Connector_CommandH
                     continue;
                 }
 
-                if (!isset($_GET['type']) || $_GET['type'] === $_resourceTypeName) {
+                if (!isset($_GET['type']) || ucwords($_GET['type']) === $_resourceTypeName || $_GET['type'] === $_resourceTypeName) {
                     //print $_resourceTypeName;
                     $_oTypeInfo = $_config->getResourceTypeConfig($_resourceTypeName);
                     //print_r($_oTypeInfo);

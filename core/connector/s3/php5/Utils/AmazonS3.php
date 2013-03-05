@@ -34,6 +34,13 @@
 * @link http://undesigned.org.za/2007/10/22/amazon-s3-php-class
 * @version 0.5.0-dev
 */
+
+function s3_con()
+{
+    $s3 = new S3($GLOBALS['config']['AmazonS3']['AccessKey'], $GLOBALS['config']['AmazonS3']['SecretKey']);
+    return $s3;
+}
+
 class S3
 {
 	// ACL flags
@@ -441,7 +448,7 @@ class S3
 	* @param string $md5sum MD5 hash to send (optional)
 	* @return array | false
 	*/
-	public static function inputResource(&$resource, $bufferSize, $md5sum = '')
+	public static function inputResource($resource, $bufferSize, $md5sum = '')
 	{
 		if (!is_resource($resource) || $bufferSize < 0)
 		{
@@ -942,6 +949,7 @@ class S3
 		$rest = $rest->getResponse();
 		if ($rest->error === false && $rest->code !== 204)
 			$rest->error = array('code' => $rest->code, 'message' => 'Unexpected HTTP status');
+
 		if ($rest->error !== false)
 		{
 			self::__triggerError(sprintf("S3::deleteObject(): [%s] %s",
