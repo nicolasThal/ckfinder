@@ -117,13 +117,15 @@ class CKFinder_Connector_CommandHandler_DeleteFiles extends CKFinder_Connector_C
           $this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
         }
 
-        $filePath = substr($_resourceTypeConfig[$type]->getDirectory().$path.$name, 1);
+        $filePath = substr($_resourceTypeConfig[$type]->getDirectory(). '/' . $path.$name, 1);
 
 //        if (!file_exists($filePath) || !is_file($filePath) ) {
 //          $errorCode = CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND;
 //          $this->appendErrorNode($oErrorsNode, $errorCode, $name, $type, $path);
 //          continue;
 //        }
+
+
 
         global $config;
         $s3 = s3_con();
