@@ -85,7 +85,7 @@ class CKFinder_Connector_CommandHandler_GetFolders extends CKFinder_Connector_Co
             $i=0;
             foreach ($files as $file) {
                 $oAcl = $_config->getAccessControlConfig();
-                $folderPath = $this->_currentFolder->getClientPath() . $file . '/';
+                $folderPath = $this->_currentFolder->getServerPath() . $file . '/';
                 $aclMask = $oAcl->getComputedMask($this->_currentFolder->getResourceTypeName(), $folderPath);
 
                 if (($aclMask & CKFINDER_CONNECTOR_ACL_FOLDER_VIEW) != CKFINDER_CONNECTOR_ACL_FOLDER_VIEW) {

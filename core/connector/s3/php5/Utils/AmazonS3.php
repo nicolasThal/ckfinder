@@ -37,7 +37,12 @@
 
 function s3_con()
 {
-    $s3 = new S3($GLOBALS['config']['AmazonS3']['AccessKey'], $GLOBALS['config']['AmazonS3']['SecretKey']);
+    $s3 = new S3(
+        $GLOBALS['config']['AmazonS3']['AccessKey'],
+        $GLOBALS['config']['AmazonS3']['SecretKey'],
+        $GLOBALS['config']['AmazonS3']['SslUse'],
+        $GLOBALS['config']['AmazonS3']['BaseUrl']
+    );
     return $s3;
 }
 

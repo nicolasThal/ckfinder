@@ -73,13 +73,19 @@ class CKFinder_Connector_CommandHandler_Thumbnail extends CKFinder_Connector_Com
             $this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_INVALID_REQUEST);
         }
 
-        $sourceFilePath = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_currentFolder->getServerPath(), $fileName);
+        $scheme = $GLOBALS['config']['AmazonS3']['SslUse'] ? 'https': 'http';
+        $urlPrefix = $scheme . '://' . $GLOBALS['config']['AmazonS3']['BaseUrl'] . '/'. $GLOBALS['config']['AmazonS3']['Bucket'];
+        $sourceFilePath = CKFinder_Connector_Utils_FileSystem::combinePaths($urlPrefix . $this->_currentFolder->getServerPath(), $fileName);
 
+        if ($GLOBALS['config']['Thumbnails']['directAccess']) {
+            header( 'Location: ' . $sourceFilePath);
+            exit;
+        }
         if ($_resourceTypeInfo->checkIsHiddenFile($fileName) || !file_exists($sourceFilePath)) {
             $this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_FILE_NOT_FOUND);
         }
 
-        $thumbFilePath = CKFinder_Connector_Utils_FileSystem::combinePaths($this->_currentFolder->getThumbsServerPath(), $fileName);
+        $thumbFilePath = CKFinder_Connector_Utils_FileSystem::combinePaths($urlPrefix . $this->_currentFolder->getThumbsServerPath(), $fileName);
 
         // If the thumbnail file doesn't exists, create it now.
         if (!file_exists($thumbFilePath)) {
