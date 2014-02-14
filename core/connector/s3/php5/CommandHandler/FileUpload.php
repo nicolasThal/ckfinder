@@ -142,7 +142,7 @@ class CKFinder_Connector_CommandHandler_FileUpload extends CKFinder_Connector_Co
         global $config;
         $s3 = s3_con();
 
-        if (!$s3->putObject($s3->inputResource(fopen($uploadedFile['tmp_name'], 'rb'), filesize($uploadedFile['tmp_name'])), $config['AmazonS3']['Bucket'], $fileName, $s3::ACL_PUBLIC_READ)) {
+        if (!$s3->putObject($s3->inputResource(fopen($uploadedFile['tmp_name'], 'rb'), filesize($uploadedFile['tmp_name']), '', $uploadedFile['type']), $config['AmazonS3']['Bucket'], $fileName, $s3::ACL_PUBLIC_READ)) {
             $this->_errorHandler->throwError(CKFINDER_CONNECTOR_ERROR_UNAUTHORIZED);
         }
 

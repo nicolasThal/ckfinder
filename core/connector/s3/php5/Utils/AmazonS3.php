@@ -445,15 +445,16 @@ class S3
 	}
 
 
-	/**
-	* Create input array info for putObject() with a resource
-	*
-	* @param string $resource Input resource to read from
-	* @param integer $bufferSize Input byte size
-	* @param string $md5sum MD5 hash to send (optional)
-	* @return array | false
-	*/
-	public static function inputResource($resource, $bufferSize, $md5sum = '')
+    /**
+     * Create input array info for putObject() with a resource
+     *
+     * @param string $resource Input resource to read from
+     * @param integer $bufferSize Input byte size
+     * @param string $md5sum MD5 hash to send (optional)
+     * @param string $type add the file type (optional)
+     * @return array | false
+     */
+	public static function inputResource($resource, $bufferSize, $md5sum = '', $type = '')
 	{
 		if (!is_resource($resource) || $bufferSize < 0)
 		{
@@ -462,6 +463,9 @@ class S3
 		}
 		$input = array('size' => $bufferSize, 'md5sum' => $md5sum);
 		$input['fp'] =& $resource;
+        if (!empty($type)) {
+            $input['type'] = $type;
+        }
 		return $input;
 	}
 
