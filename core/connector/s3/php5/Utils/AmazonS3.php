@@ -531,6 +531,7 @@ class S3
 			$rest->setAmzHeader('x-amz-storage-class', $storageClass);
 
 		// We need to post with Content-Length and Content-Type, MD5 is optional
+        $rest->setHeader('Cache-Control', 'public, max-age=31536000');
 		if ($rest->size >= 0 && ($rest->fp !== false || $rest->data !== false))
 		{
 			$rest->setHeader('Content-Type', $input['type']);
